@@ -8,6 +8,8 @@ jobs:
     steps:
       - name: Pull everything
         uses: actions/checkout@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 #         with:
 #           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
 #           fetch-depth: 0
