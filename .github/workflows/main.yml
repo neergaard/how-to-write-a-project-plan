@@ -8,6 +8,9 @@ jobs:
     steps:
       - name: Pull everything
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+        
       - name: Convert to Markdown
         uses: docker://pandoc/latex:3.0
         with:
@@ -15,9 +18,17 @@ jobs:
             --standalone
             --output=README.md
             main.tex
-      - run: |
-          git config user.name neergaard
-          git config user.email aneol@dtu.dk
+            
+      - name: Commit files
+        run: |
+          git config --local user.name github-actions
+          git config --local user.email github-actions@github.com
           git add .
           git commit -m "TeX to Markdown conversion"
           git push
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
