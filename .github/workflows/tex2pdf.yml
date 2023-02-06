@@ -3,7 +3,7 @@ name: TeX to PDF
 on:
   push:
     paths:
-      - **.tex
+    - '**.tex'
 
 jobs:
   convert_via_pandoc:
