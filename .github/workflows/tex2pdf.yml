@@ -8,8 +8,6 @@ jobs:
     steps:
       - name: Pull everything
         uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GH_ACCESS_TOKEN }}
           
       - name: Convert to PDF
         uses: closoco/pdflatex-action@v1.0.0
