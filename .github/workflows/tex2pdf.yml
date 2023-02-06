@@ -1,6 +1,9 @@
 name: TeX to PDF
 
-on: push
+on:
+  push:
+    paths:
+      - **.tex
 
 jobs:
   convert_via_pandoc:
@@ -14,16 +17,10 @@ jobs:
         with:
           texFile: main.tex
           
-      - name: Remove auxiliary files
-        run: |
-          rm *.aux
-          rm *.log
-          rm *.out
-          
       - name: Push changes
         uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
         with:
           committer_name: GitHub Actions
           committer_email: actions@github.com
-          add: '.'
+          add: '*.pdf'
           message: 'TeX to PDF conversion'
